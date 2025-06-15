@@ -56,6 +56,14 @@ public class Main {
                     }
                     maxProduct = Math.max(maxProduct, product);
                 }
+
+                // diagonal check N--SE
+                if (row + lengthOfSequence <= grid.length && col + lengthOfSequence <= grid[0].length) {
+                    for (int k = 0; k < lengthOfSequence; k++) {
+                        product *= grid[row + k][col + k];
+                    }
+                    maxProduct = Math.max(maxProduct, product);
+                }
             }
         }
         System.out.println(maxProduct); // debug print product found in grid
