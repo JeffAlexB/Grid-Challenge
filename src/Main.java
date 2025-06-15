@@ -48,6 +48,14 @@ public class Main {
                     }
                     maxProduct = Math.max(maxProduct, product);
                 }
+
+                // vertical check N--S
+                if (row + lengthOfSequence <= grid.length) {
+                    for (int k = 0; k < lengthOfSequence; k++) {
+                        product *= grid[row + k][col];
+                    }
+                    maxProduct = Math.max(maxProduct, product);
+                }
             }
         }
         System.out.println(maxProduct); // debug print product found in grid
