@@ -18,7 +18,6 @@ public class Main {
                 row[i] = Integer.parseInt(tokens[i]);
             }
             gridList.add(row);
-            // System.out.println(Arrays.toString(row)); // debug that the file is read
         }
         scanner.close();
 
@@ -27,17 +26,8 @@ public class Main {
             grid[i] = gridList.get(i);
         }
 
-        /*
-        // debug to print the full grid
-        System.out.println("Data in grid:");
-        for (int[] row : grid) {
-            System.out.println(Arrays.toString(row));
-        }
-        */
-
         final int lengthOfSequence = 4;
         int maxProduct = 0;
-
         // tracks position
         List<Integer> maxSequence = new ArrayList<>();
         String maxDirection = "";
@@ -121,11 +111,9 @@ public class Main {
                 }
             }
         }
-        // System.out.println("Maximum product found is: " + maxProduct); // debug print max possible product found in grid
         System.out.println("Maximum product found is: " + maxProduct);
         System.out.println("Sequence of integers: " + maxSequence);
         System.out.printf("Starting at row %d, column %d\n", maxRow, maxCol);
         System.out.println("Direction of sequence found: " + maxDirection);
-
     }
 }
