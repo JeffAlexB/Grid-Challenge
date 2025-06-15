@@ -66,6 +66,6 @@ public class Main {
                 }
             }
         }
-        System.out.println(maxProduct); // debug print product found in grid
+        System.out.println("Maximum product found is: " + maxProduct); // debug print max possible product found in grid
     }
 }
