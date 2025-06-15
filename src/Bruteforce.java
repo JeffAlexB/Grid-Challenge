@@ -1,10 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class Bruteforce {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("resources/test.txt"));
         List<int[]> gridList = new ArrayList<>();
@@ -26,8 +25,9 @@ public class Main {
             grid[i] = gridList.get(i);
         }
 
-        final int lengthOfSequence = 4;
+        int lengthOfSequence = 4;
         int maxProduct = 0;
+
         // tracks position
         List<Integer> maxSequence = new ArrayList<>();
         String maxDirection = "";
@@ -35,7 +35,6 @@ public class Main {
         int maxCol = -1;
 
         for (int row = 0; row < grid.length; row++) {
-            // int product = 1;
             for (int col = 0; col < grid[0].length; col++) {
 
                 // horizontal check W--E
