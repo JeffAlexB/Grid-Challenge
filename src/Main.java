@@ -39,10 +39,11 @@ public class Main {
         int maxProduct = 0;
 
         for (int row = 0; row < grid.length; row++) {
-            int product = 1;
+            // int product = 1;
             for (int col = 0; col < grid[0].length; col++) {
                 // horizontal check W--E
                 if (col + lengthOfSequence <= grid[0].length) {
+                    int product = 1;
                     for (int k = 0; k < lengthOfSequence; k++) {
                         product *= grid[row][col + k];
                     }
@@ -51,6 +52,7 @@ public class Main {
 
                 // vertical check N--S
                 if (row + lengthOfSequence <= grid.length) {
+                    int product = 1;
                     for (int k = 0; k < lengthOfSequence; k++) {
                         product *= grid[row + k][col];
                     }
@@ -59,6 +61,7 @@ public class Main {
 
                 // diagonal check N--SE
                 if (row + lengthOfSequence <= grid.length && col + lengthOfSequence <= grid[0].length) {
+                    int product = 1;
                     for (int k = 0; k < lengthOfSequence; k++) {
                         product *= grid[row + k][col + k];
                     }
@@ -67,6 +70,7 @@ public class Main {
 
                 // diagonal check N--SW
                 if (row + lengthOfSequence <= grid.length && col - lengthOfSequence + 1 >= 0) {
+                    int product = 1;
                     for (int k = 0; k < lengthOfSequence; k++) {
                         product *= grid[row + k][col - k];
                     }
