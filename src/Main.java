@@ -21,5 +21,19 @@ public class Main {
             // System.out.println(Arrays.toString(row)); // debug that the file is read
         }
         scanner.close();
+
+        int[][] grid = new int[gridList.size()][];
+        for (int i = 0; i < gridList.size(); i++) {
+            grid[i] = gridList.get(i);
+        }
+
+        /*
+        // debug to print the full grid
+        System.out.println("Data in grid:");
+        for (int[] row : grid) {
+            System.out.println(Arrays.toString(row));
+        }
+        */
+
     }
 }
