@@ -35,5 +35,21 @@ public class Main {
         }
         */
 
+        final int lengthOfSequence = 4;
+        int maxProduct = 0;
+
+        for (int row = 0; row < grid.length; row++) {
+            int product = 1;
+            for (int col = 0; col < grid[0].length; col++) {
+                // horizontal check W--E
+                if (col + lengthOfSequence <= grid[0].length) {
+                    for (int k = 0; k < lengthOfSequence; k++) {
+                        product *= grid[row][col + k];
+                    }
+                    maxProduct = Math.max(maxProduct, product);
+                }
+            }
+        }
+        System.out.println(maxProduct); // debug print product found in grid
     }
 }
