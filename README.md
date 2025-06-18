@@ -30,8 +30,7 @@ and readable solution before iterating into optimization.
 - - [Step 5 - Printing the final results](#step-5-printing-the-final-results)
 - - [Closing thoughts / post-mortem](#closing-thoughts-and-post-mortem)
 - - [Next steps or improvements](#next-steps-or-improvements)
-- [](#)
-- - [](#)
+- - [Limitations and edge-cases](#limitations-and-edge-cases)
 
 ----
 
@@ -264,6 +263,73 @@ were significantly larger or the sequence length made variable, performance woul
 different planning. But for a fixed 20×20 grid and a clear objective, this solution delivers a result that’s accurate, 
 readable, and easy to follow. In the end, the goal was to solve the problem cleanly, not <i>invent</i> a new one. 
 And in that regard, this code achieves just that, exactly what it needs to.
+
+----
+
+### Limitations and edge-cases
+
+If the intention was to add scalability or a more robust / defensive programing paradigm, it's important to consider 
+edge cases that could affect the output, especially when dealing with real-world input data, larger problem instances 
+or user-generated errors. One such case is the presence of zeroes in the grid. Any sequence that includes a zero will 
+result in a product of zero, regardless of how large the other numbers are, <i>and thus a problem</i>. While the current
+implementation accounts for this to a certain degree, there's always performance to be eked out for an improved programming 
+solution. For example by short-circuiting the multiplication loop whenever a zero is encountered. This avoids 
+unnecessary calculations and resources which may improve performance slightly, especially in larger grids with sparse data.
+
+````
+// Example of how a skip-calculation culd be implemented to guard agains '0's
+int product = 1;
+for (int k = 0; k < sequenceLength; k++) {
+    int value = grid[row][col + k];
+    if (value == 0) {
+        product = 0;
+        break;
+    }
+    product *= value;
+}
+````
+
+Another common concern could be the handling of negative numbers. These should not be filtered or skipped, as multiplying an 
+even number of negative integers yields a positive product. For example, a sequence like `-6, -4, 2, 3` produces a 
+positive product of 144. It's essential that the logic treats negative numbers as valid components of a sequence and 
+includes them in the calculation without bias. Though a sabotaged solution with, say, every second integer being negative, 
+or some form of irregular frequency or pattern this will no longer be the case. 
+
+Beyond values, grid shape and size are critical. The solution is designed to work with grids of any size, not just 20×20. 
+However, it does assume that the grid is rectangular (So all rows have the same number of columns). If the input file 
+contains rows of unequal lengths, this can lead to runtime errors or undefined behavior or as commonly referred to: 
+<i>square-peg-round-hole</i> problems. To resolve this, a check should be added during parsing to ensure uniform row lengths. 
+If an inconsistency is found, could program can throw an error message to inform the user that the grid is malformed.
+
+````
+// Example of a possible error implemenation 
+for (int[] row : grid) {
+    if (row.length != grid[0].length) {
+        throw new IllegalArgumentException("Inconsistent row lengths detected.");
+    }
+}
+````
+
+Making the sequence length configurable could also be another useful enhancement. While this challenge specifically calls for 
+groups of four numbers, introducing a constant (or user-input changeable value) for sequence length would improve flexibility. 
+It also aligns with good, <i>or better</i>, software engineering practices by avoiding magic numbers and making the program more
+scalable / flexible.
+
+And finally, a basic file validation before parsing would help prevent avoidable runtime errors. Confirming that the file exists 
+and is readable before attempting to scan its contents ensures that missing or misnamed files are caught early, with 
+informative errors rather than stack traces.
+
+````
+// Example of a simple file verification parser
+File file = new File("resources/test.txt");
+if (!file.exists() || !file.canRead()) {
+    throw new FileNotFoundException("File not found or unreadable.");
+}
+````
+
+Altogether, these enhancements may not be required for a coding challenge with well-formed or known input, but it would 
+demonstrate foresight and a mature approach to coding. In real-world applications, input is rarely clean or predictable, 
+and taking steps to thoroughly handle edge cases can significantly improve the reliability and user experience of the program.
 
 ----
 
