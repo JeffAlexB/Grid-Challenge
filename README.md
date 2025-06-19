@@ -47,6 +47,34 @@ problem at hand. So with-out further ado.
 
 ----
 
+### How to run
+
+Prerequisites:
+* Java 17 
+* Terminal or your choice of IDE (f.ex IntelliJ or VS Code)
+
+1. Clone the repo 
+````
+git clone https://github.com/your-username/grid-challenge.git
+cd grid-challenge
+````
+2. Place / load up your input file
+Check that a file names `test.txt` is located inside the `resources/` folder, or edit the code after adding the approriate file into the `resources/` folder on this line:
+````
+Scanner scanner = new Scanner(new File("resources/test.txt")); <-- edit `test.txt` to the chosen file
+````
+3. Compile and then run the code
+Commands to compile via CLI or IDE:
+````
+javac -d out src/Main.java
+````
+Commands to run the program
+````
+java -cp out Main
+````
+
+----
+
 ### Step 1 Reading the file
 <p>
 To start of with, lets get into reading the test files to see what the provided grid contains, one row pr. line, or it'll
