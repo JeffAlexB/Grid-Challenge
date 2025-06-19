@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("resources/test.txt"));
+        Scanner scanner = new Scanner(new File("resources/grid.txt"));
         List<int[]> gridList = new ArrayList<>();
 
         while (scanner.hasNextInt()) {
@@ -26,7 +26,7 @@ public class Main {
         }
 
         int lengthOfSequence = 4;
-        int maxProduct = 0;
+        long maxProduct = 0;
 
         // tracks position
         List<Integer> maxSequence = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Main {
 
                 // horizontal check W--E
                 if (col + lengthOfSequence <= grid[0].length) {
-                    int product = 1;
+                    long product = 1;
                     List<Integer> sequence = new ArrayList<>();
                     for (int k = 0; k < lengthOfSequence; k++) {
                         int value = grid[row][col + k];
@@ -57,7 +57,7 @@ public class Main {
 
                 // vertical check N--S
                 if (row + lengthOfSequence <= grid.length) {
-                    int product = 1;
+                    long product = 1;
                     List<Integer> sequence = new ArrayList<>();
                     for (int k = 0; k < lengthOfSequence; k++) {
                         int value = grid[row + k][col];
@@ -75,7 +75,7 @@ public class Main {
 
                 // diagonal check N--SE
                 if (row + lengthOfSequence <= grid.length && col + lengthOfSequence <= grid[0].length) {
-                    int product = 1;
+                    long product = 1;
                     List<Integer> sequence = new ArrayList<>();
                     for (int k = 0; k < lengthOfSequence; k++) {
                         int value = grid[row + k][col + k];
@@ -93,7 +93,7 @@ public class Main {
 
                 // diagonal check N--SW
                 if (row + lengthOfSequence <= grid.length && col - lengthOfSequence + 1 >= 0) {
-                    int product = 1;
+                    long product = 1;
                     List<Integer> sequence = new ArrayList<>();
                     for (int k = 0; k < lengthOfSequence; k++) {
                         int value = grid[row + k][col - k];
@@ -110,7 +110,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("Maximum product found is: " + maxProduct);
+        System.out.printf("Maximum product found is: %,d\n", maxProduct);
         System.out.println("Sequence of integers: " + maxSequence);
         System.out.printf("Starting at row %d, column %d\n", maxRow, maxCol);
         System.out.println("Direction of sequence found: " + maxDirection);
