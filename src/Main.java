@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("resources/grid.txt"));
+        Scanner scanner = new Scanner(new File("resources/test.txt"));
         List<int[]> gridList = new ArrayList<>();
 
         while (scanner.hasNextInt()) {
@@ -36,80 +36,26 @@ public class Main {
 
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[0].length; col++) {
+                Direction[] results = {
+                        ScanTraversal.scanRight(grid, row, col, lengthOfSequence),
+                        ScanTraversal.scanDown(grid, row, col, lengthOfSequence),
+                        ScanTraversal.scanDiagonalSE(grid, row, col, lengthOfSequence),
+                        ScanTraversal.scanDiagonalSW(grid, row, col, lengthOfSequence),
+                };
 
-                // horizontal check W--E
-                if (col + lengthOfSequence <= grid[0].length) {
-                    long product = 1;
-                    List<Integer> sequence = new ArrayList<>();
-                    for (int k = 0; k < lengthOfSequence; k++) {
-                        int value = grid[row][col + k];
-                        product *= value;
-                        sequence.add(value);
-                    }
-                    if (product > maxProduct) {
-                        maxProduct = product;
-                        maxSequence = sequence;
-                        maxDirection = "Horizontal";
-                        maxRow = row;
-                        maxCol = col;
-                    }
-                }
-
-                // vertical check N--S
-                if (row + lengthOfSequence <= grid.length) {
-                    long product = 1;
-                    List<Integer> sequence = new ArrayList<>();
-                    for (int k = 0; k < lengthOfSequence; k++) {
-                        int value = grid[row + k][col];
-                        product *= value;
-                        sequence.add(value);
-                    }
-                    if (product > maxProduct) {
-                        maxProduct = product;
-                        maxSequence = sequence;
-                        maxDirection = "Vertical";
-                        maxRow = row;
-                        maxCol = col;
-                    }
-                }
-
-                // diagonal check N--SE
-                if (row + lengthOfSequence <= grid.length && col + lengthOfSequence <= grid[0].length) {
-                    long product = 1;
-                    List<Integer> sequence = new ArrayList<>();
-                    for (int k = 0; k < lengthOfSequence; k++) {
-                        int value = grid[row + k][col + k];
-                        product *= value;
-                        sequence.add(value);
-                    }
-                    if (product > maxProduct) {
-                        maxProduct = product;
-                        maxSequence = sequence;
-                        maxDirection = "Diagonal";
-                        maxRow = row;
-                        maxCol = col;
-                    }
-                }
-
-                // diagonal check N--SW
-                if (row + lengthOfSequence <= grid.length && col - lengthOfSequence + 1 >= 0) {
-                    long product = 1;
-                    List<Integer> sequence = new ArrayList<>();
-                    for (int k = 0; k < lengthOfSequence; k++) {
-                        int value = grid[row + k][col - k];
-                        product *= value;
-                        sequence.add(value);
-                    }
-                    if (product > maxProduct) {
-                        maxProduct = product;
-                        maxSequence = sequence;
-                        maxDirection = "Diagonal";
-                        maxRow = row;
-                        maxCol = col;
+                for (Direction result : results) {
+                    if (result != null && result.product > maxProduct){
+                        maxProduct = result.product;
+                        maxSequence = result.sequence;
+                        maxDirection = result.direction;
+                        maxRow = result.startRow;
+                        maxCol = result.startCol;
                     }
                 }
             }
         }
+
+
         System.out.printf("Maximum product found is: %,d\n", maxProduct);
         System.out.println("Sequence of integers: " + maxSequence);
         System.out.printf("Starting at row %d, column %d\n", maxRow, maxCol);
